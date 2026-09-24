@@ -33,8 +33,91 @@ class MainActivity : AppCompatActivity() {
         print(nombre?.length) //si es null retorna null
         print(nombre!!.length) //diu que es 100% null
 
-        val nom : String? = null
-        val nomNou = nom ?: "hi ha nom" //dona un valor alternatiu
+        val nomDos : String? = null
+        val nomNou = nomDos ?: "hi ha nom" //dona un valor alternatiu
         println(nomNou)
+
+        fun carregant(): Unit {
+            println("carregant...")
+        }
+
+        //if when try
+        val edat = 25
+        val missatge = if (edat >= 18) "major d'edat" else "menor d'edat"
+        println(missatge)
+
+        val calificacio = 8
+        val resultat = when {
+            calificacio >= 9 -> "Excelent"
+            calificacio >= 7 -> "Notable"
+            else -> "suspens"
+        }
+        print(resultat)
+
+        val numero = try{
+            "hola".toInt()
+        }catch (e: NumberFormatException){
+            -1
+        }
+        println(numero)
+
+        //lambda
+        val nom = "Adriana"
+        val salutacio = {nom : String -> "Hola $nom"}
+
+        //mutable inmutable
+        val frutas = listOf("platano", "melocoton", "manzana")
+
+        val frutas2 = mutableListOf("platano", "melocoton", "manzana")
+        frutas2.add("pera")
+
+        //map i filter
+        val numeros = listOf(1,2,3,4)
+        val doble = numeros.map { it * 2 } //it es per quan la lambda nomes te un unic parametre
+        println(doble)
+
+        val pares = numeros.filter { it % 2 == 0 }
+        println(pares)
+
+        open class Animal{
+            fun menja (){
+                println("l'animal menja")
+            }
+        }
+        class Gat : Animal() {
+            fun miola (){
+                println("miau, miau")
+            }
+        }
+
+        //constructor
+        class Persona(val nombre : String, val edat: Int)
+        //objecte
+        val persona = Persona("adriana", 25)
+
+        // cridant a la funcio de bbot del exercici
+        botDeSeguretat()
+
+    }
+    //enum y sealed class
+    enum class Semaforo {
+        rojo, amarillo, verde
+    }
+    fun accion(color: Semaforo): String{
+        return when (color){
+            Semaforo.rojo -> "para"
+            Semaforo.verde -> "continua"
+            Semaforo.amarillo -> "preparate"
+        }
+    }
+    sealed class Vehiculo
+    class Moto : Vehiculo()
+    class Coche : Vehiculo()
+
+    fun describir (v: Vehiculo): String{
+        return when (v){
+            is Coche -> "es un coche"
+            is Moto -> "es una moto"
+        }
     }
 }
